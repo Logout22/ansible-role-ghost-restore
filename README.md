@@ -1,5 +1,5 @@
-Ghost Backup
-============
+Ghost Restore
+=============
 
 [![Build Status](https://travis-ci.org/Logout22/ansible-role-ghost-restore.svg?branch=master)](https://travis-ci.org/Logout22/ansible-role-ghost-restore)
 
