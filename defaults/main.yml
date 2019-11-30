@@ -1,6 +1,6 @@
 ---
 # Name of AWS S3 bucket used as source for restore job
-aws_s3_upload_bucket_name: ""
+aws_s3_bucket_name: ""
 # AWS access key used for S3 put operation
 aws_access_key: ""
 # AWS secret key used for S3 put operation
@@ -8,7 +8,9 @@ aws_secret_key: ""
 # The source archive to download
 source_file: /var/www/ghost.tar.gz
 # The target directory to install the archive to
-target_directory: /var/www/ghost
+target_directory: /var/www
+# The temporary download path of the source archive
+source_file_download_path: "{{ target_directory }}/ghost.tar.gz"
 # The user account used for controlling Ghost
 user_name: ghost
 # The address of the local Ghost server

@@ -7,3 +7,17 @@
     path: "{{ target_directory }}"
     owner: "{{ user_name }}"
     state: directory
+- name: install AWS S3 dependencies
+  pip:
+    name:
+      - boto
+      - boto3
+      - botocore
+- name: download archive from S3
+  aws_s3:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    bucket: "{{ aws_s3_bucket_name }}"
+    mode: get
+    dest: "{{ source_file_download_path }}"
+    object: "{{ source_file }}"
