@@ -1,4 +1,7 @@
 ---
+- name: establish archive changed fact
+  set_fact:
+    archive_changed: False
 - name: ensure user account exists
   user:
     name: "{{ user_name }}"
@@ -7,6 +10,10 @@
     path: "{{ target_directory }}"
     owner: "{{ user_name }}"
     state: directory
+- name: gather information on source archive
+  stat:
+    path: "{{ source_file_download_path }}"
+  register: source_archive_before
 - name: install AWS S3 dependencies
   pip:
     name:
@@ -21,3 +28,15 @@
     mode: get
     dest: "{{ source_file_download_path }}"
     object: "{{ source_file }}"
+  # we need to gather archive_changed explicitly
+  changed_when: False
+- name: gather information on downloaded archive
+  stat:
+    path: "{{ source_file_download_path }}"
+  register: source_archive_after
+- name: evaluate archive changed fact
+  set_fact:
+    archive_changed: True
+  when: >
+      source_archive_before.stat.checksum is not defined or
+      source_archive_before.stat.checksum != source_archive_after.stat.checksum
