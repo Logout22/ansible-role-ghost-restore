@@ -1,2 +1,0 @@
-- name: ansible-role-ghost-backup
-  src: https://github.com/Logout22/ansible-role-ghost-backup
