@@ -31,7 +31,11 @@ Installation
 
 - Run the tests:
 
-      ANSIBLE_ROLES_PATH=..:$ANSIBLE_ROLES_PATH ansible-playbook tests/test.yml
+      ANSIBLE_ROLES_PATH=..:$ANSIBLE_ROLES_PATH \
+        ansible-playbook \
+        -e aws_access_key=$AWS_ACCESS_KEY_ID \
+        -e aws_secret_key=$AWS_SECRET_ACCESS_KEY \
+        tests/test.yml
 
   The role requires a dedicated Ghost user, so you will need to run the tests either as root (sudo)
   or change the target user and path in `tests/test.yml` to your own user account / home directory.
