@@ -1,2 +1,9 @@
 ---
-# tasks file for ansible-role-ghost-restore
+- name: ensure user account exists
+  user:
+    name: "{{ user_name }}"
+- name: ensure target directory exists
+  file:
+    path: "{{ target_directory }}"
+    owner: "{{ user_name }}"
+    state: directory
