@@ -10,7 +10,7 @@ source_file: /var/www/ghost.tar.gz
 # The target directory to install the archive to
 # target_directory will be stripped from the
 # downloaded archive's file paths
-target_directory: /var/www
+target_directory: /var/www/ghost
 # The temporary download path of the source archive
 source_file_download_path: "{{ target_directory }}/ghost.tar.gz"
 # The user account used for controlling Ghost
