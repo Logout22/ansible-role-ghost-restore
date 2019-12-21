@@ -49,7 +49,7 @@
     src: "{{ source_file_download_path }}"
     extra_opts:
     - --transform
-    - "s|{{ target_directory | regex_replace('^\\/', '') }}||"
+    - "s|{{ target_directory | regex_replace('^\\/|\\/$', '') }}|.|"
 - name: check if Ghost is running
   uri:
     url: "{{ ghost_address }}"
