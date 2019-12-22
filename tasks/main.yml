@@ -7,7 +7,7 @@
     name: "{{ user_name }}"
 - name: ensure target directory exists
   file:
-    path: "{{ target_directory }}"
+    path: "{{ target_directory }}/{{ target_install_directory }}"
     owner: "{{ user_name }}"
     state: directory
 - name: gather information on source archive
