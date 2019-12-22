@@ -44,22 +44,20 @@
   unarchive:
     owner: "{{ user_name }}"
     remote_src: yes
-    creates: "{{ target_directory }}/content"
+    creates: "{{ target_directory }}/{{ target_install_directory }}/content"
     dest: "{{ target_directory }}"
     src: "{{ source_file_download_path }}"
-    extra_opts:
-    - --transform
-    - "s|{{ target_directory | regex_replace('^\\/|\\/$', '') }}|.|"
 - name: check if Ghost is running
   uri:
     url: "{{ ghost_address }}"
   register: ghost_running
   ignore_errors: yes
-- name: start Ghost
+- name: make sure Ghost is started
   command: /bin/sh -lc "ghost start"
-  when: "ghost_running.status == -1"
+  # the command itself is idempotent
+  changed_when: False
   become: yes
   become_method: su
   become_user: "{{ user_name }}"
   args:
-    chdir: "{{ target_directory }}"
+    chdir: "{{ target_directory }}/{{ target_install_directory }}"

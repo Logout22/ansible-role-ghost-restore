@@ -9,10 +9,12 @@
   - role: ansible-role-ghost-restore
     aws_s3_bucket_name: "ansible-role-ghost-backup-test"
   post_tasks:
-  - name: stop Ghost
+  - name: make sure Ghost is stopped
     command: /bin/sh -lc "ghost stop"
+    # the command itself is idempotent
+    changed_when: False
     become: yes
     become_method: su
     become_user: "{{ user_name }}"
     args:
-      chdir: "{{ target_directory }}"
+      chdir: "{{ target_directory }}/{{ target_install_directory }}"
