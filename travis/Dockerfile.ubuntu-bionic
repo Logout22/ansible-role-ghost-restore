@@ -1,15 +1,14 @@
 FROM ubuntu:bionic
 
-RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y software-properties-common systemd && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y systemd && rm -rf /var/lib/apt/lists/*
 
-RUN apt-add-repository -y ppa:ansible/ansible && apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     git \
-    ansible \
-    ansible-lint \
-    python-pip \
- && rm -rf /var/lib/apt/lists/* \
- && pip install --upgrade setuptools virtualenv
+    python3-pip \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+RUN pip3 install --upgrade setuptools && pip3 install --upgrade virtualenv && pip3 install ansible ansible-lint
+
+RUN mkdir -p /etc/ansible && echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 
 ENTRYPOINT ["/bin/systemd"]
