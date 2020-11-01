@@ -10,6 +10,7 @@
     path: "{{ target_directory }}/{{ target_install_directory }}"
     owner: "{{ user_name }}"
     state: directory
+    mode: 0755
 - name: gather information on source archive
   stat:
     path: "{{ source_file_download_path }}"
@@ -47,6 +48,7 @@
     creates: "{{ target_directory }}/{{ target_install_directory }}/content"
     dest: "{{ target_directory }}"
     src: "{{ source_file_download_path }}"
+    mode: 0755
 - name: check if Ghost is running
   uri:
     url: "{{ ghost_address }}"
