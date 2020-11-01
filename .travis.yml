@@ -11,7 +11,7 @@ env:
   - distribution: ubuntu
     version: bionic
   - distribution: ubuntu
-    version: xenial
+    version: focal
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
