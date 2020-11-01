@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: ghost_restore
   author: Martin Unzner
   description: A role to restore a Ghost blog from AWS S3
   license: GPL-3.0-only
