@@ -12,8 +12,7 @@ env:
     version: focal
 
 before_install:
-  - 'sudo docker pull ${distribution}:${version}'
-  - 'sudo docker build --no-cache --file=travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis'
+  - 'sudo travis/prepare.sh "${distribution}:${version}"'
 
 script:
   - container_id=$(mktemp)
