@@ -24,7 +24,9 @@ echo "Check syntax"
 ansible-playbook -v /etc/ansible/roles/ansible-role-ghost-restore/tests/test.yml --syntax-check
 echo "Run linter"
 ansible-lint /etc/ansible/roles/ansible-role-ghost-restore
+echo "Run ansible"
 run_ansible
+echo "Run idempotence test"
 if run_ansible | grep -q 'changed=0.*failed=0'; then
   echo 'Idempotence test: pass'
 else
