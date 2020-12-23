@@ -1,0 +1,24 @@
+FROM debian:buster
+
+RUN apt-get update -y && apt-get install -y \
+    build-essential \
+    libffi-dev \
+    libssl-dev \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    git \
+    procps
+
+RUN python3 -m venv venv
+
+RUN mkdir -p /etc/ansible && \
+    echo "[local]\ntestmachine" > /etc/ansible/hosts && \
+    sed -i 's/#   StrictHostKeyChecking ask/    StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config && \
+    mkdir -p /root/.ssh
+
+ADD testmachine /root/.ssh/id_rsa
+
+ADD run-tests.sh ./
+
+ENTRYPOINT ["./run-tests.sh"]

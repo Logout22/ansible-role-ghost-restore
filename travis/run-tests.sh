@@ -13,8 +13,6 @@ run_ansible()
         -v /etc/ansible/roles/ansible-role-ghost-restore/tests/test.yml
 }
 
-echo "Set up virtualenv"
-python3 -m venv venv
 . venv/bin/activate
 echo "Install requirements"
 pip install -r /etc/ansible/roles/ansible-role-ghost-restore/requirements.txt

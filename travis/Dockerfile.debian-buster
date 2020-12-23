@@ -1,20 +1,16 @@
 FROM debian:buster
 
-ADD run-tests.sh .
-
 RUN apt-get update -y && apt-get install -y \
-    build-essential \
+    ca-certificates \
     gnupg2 \
-    libffi-dev \
-    libssl-dev \
-    python3-dev \
+    openssh-server \
+    python3-apt \
     python3-pip \
-    python3-venv \
-    git \
-    procps \
-    systemd \
  && rm -rf /var/lib/apt/lists/*
+RUN sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config \
+ && mkdir -p /root/.ssh && mkdir -p /run/sshd \
+ && chmod 700 /root/.ssh
 
-RUN mkdir -p /etc/ansible && echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+ADD testmachine.pub /root/.ssh/authorized_keys
 
-ENTRYPOINT ["/bin/systemd"]
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]

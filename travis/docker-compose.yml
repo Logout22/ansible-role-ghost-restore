@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  testmachine:
+    build:
+      context: .
+      dockerfile: Dockerfile.debian-buster
+    ports:
+      - "22:22"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ..:/etc/ansible/roles/ansible-role-ghost-restore:ro
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    links:
+      - testmachine
