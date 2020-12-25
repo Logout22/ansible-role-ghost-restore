@@ -1,21 +1,22 @@
 pipeline {
-    agent none
-
+    agent {
+        label 'ubuntu_ec2'
+    }
     stages {
         stage('Prepare') {
-            agent { 
-                label 'ubuntu_ec2'
-            }
             steps {
                 sh 'sudo apt-get update && sudo apt-get install -y docker-compose'
             }
         }
         stage('Build') {
-            agent { 
-                label 'ubuntu_ec2'
-            }
             steps {
-                sh 'cd travis && sudo ./prepare.sh'
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'S3']]) {
+                    sh """sudo sh -c \
+'export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} &&
+export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} &&
+cd travis &&
+./prepare.sh'"""
+                }
             }
         }
     }
