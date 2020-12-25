@@ -25,7 +25,8 @@ ansible-lint /etc/ansible/roles/ansible-role-ghost-restore
 echo "Run ansible"
 run_ansible
 echo "Run idempotence test"
-if run_ansible | grep -q 'changed=0.*failed=0'; then
+run_ansible | tee idempotence.log
+if grep -q 'changed=0.*failed=0' idempotence.log; then
   echo 'Idempotence test: pass'
 else
   echo 'Idempotence test: fail'
