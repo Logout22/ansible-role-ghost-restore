@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.debian-buster
     ports:
-      - "22:22"
+      - "2222:2222"
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
   orchestrator:

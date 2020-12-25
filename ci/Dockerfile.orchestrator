@@ -13,7 +13,7 @@ RUN apt-get update -y && apt-get install -y \
 RUN python3 -m venv venv
 
 RUN mkdir -p /etc/ansible && \
-    echo "[local]\ntestmachine" > /etc/ansible/hosts && \
+    echo "[local]\ntestmachine:2222" > /etc/ansible/hosts && \
     sed -i 's/#   StrictHostKeyChecking ask/    StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config && \
     mkdir -p /root/.ssh
 
