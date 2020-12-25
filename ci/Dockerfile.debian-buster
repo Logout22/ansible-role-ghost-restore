@@ -5,9 +5,7 @@ RUN apt-get update -y && apt-get install -y \
     gnupg2 \
     openssh-server \
     python-apt \
-    python3-apt \
     python-pip \
-    python3-pip \
  && rm -rf /var/lib/apt/lists/*
 RUN sed -i 's/#PermitRootLogin/PermitRootLogin/;s/#Port 22/Port 2222/' /etc/ssh/sshd_config \
  && mkdir -p /root/.ssh && mkdir -p /run/sshd \
