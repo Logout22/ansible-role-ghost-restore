@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'ubuntu_ec2'
     }
+    options {
+        disableConcurrentBuilds()
+    }
     stages {
         stage('Prepare') {
             steps {
