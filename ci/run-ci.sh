@@ -4,6 +4,7 @@ set -o errexit
 set -o nounset
 
 cleanup() {
+    docker-compose down -v --rmi all --remove-orphans
     rm -f testmachine{,.pub} .env
 }
 
