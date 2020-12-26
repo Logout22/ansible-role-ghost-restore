@@ -31,10 +31,3 @@ pipeline {
         }
     }
 }
-/*
-  - distribution: debian
-    version: buster
-  - distribution: ubuntu
-    version: bionic
-  - distribution: ubuntu
-    version: focal */

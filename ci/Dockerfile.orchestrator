@@ -1,6 +1,6 @@
-FROM debian:buster
+FROM ubuntu:focal
 
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update -y && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     build-essential \
     libffi-dev \
     libssl-dev \
@@ -13,12 +13,11 @@ RUN apt-get update -y && apt-get install -y \
 RUN python3 -m venv venv
 
 RUN mkdir -p /etc/ansible && \
-    echo "[local]\ntestmachine:2222" > /etc/ansible/hosts && \
     sed -i 's/#   StrictHostKeyChecking ask/    StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config && \
     mkdir -p /root/.ssh
 
+ADD hosts /etc/ansible/
 ADD testmachine /root/.ssh/id_rsa
-
 ADD run-tests.sh ./
 
 ENTRYPOINT ["./run-tests.sh"]

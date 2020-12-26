@@ -2,15 +2,17 @@
 set -o errexit
 set -o nounset
 
-export ANSIBLE_FORCE_COLOR=1
-
 run_ansible()
 {
     echo "Run Ansible"
     ansible-playbook \
         -e aws_access_key="$AWS_ACCESS_KEY_ID" \
         -e aws_secret_key="$AWS_SECRET_ACCESS_KEY" \
-        -v /etc/ansible/roles/ansible-role-ghost-restore/tests/test.yml
+        -v /etc/ansible/roles/ansible-role-ghost-restore/tests/test.yml | tee ansible.log
+    if grep -q 'failed=[1-9]' ansible.log; then
+        echo 'Ansible failed'
+        exit 1
+    fi
 }
 
 . venv/bin/activate
@@ -25,10 +27,10 @@ ansible-lint /etc/ansible/roles/ansible-role-ghost-restore
 echo "Run ansible"
 run_ansible
 echo "Run idempotence test"
-run_ansible | tee idempotence.log
-if grep -q 'changed=0.*failed=0' idempotence.log; then
-  echo 'Idempotence test: pass'
-else
+run_ansible
+if grep -q 'changed=[1-9]' ansible.log; then
   echo 'Idempotence test: fail'
   exit 1
+else
+  echo 'Idempotence test: pass'
 fi

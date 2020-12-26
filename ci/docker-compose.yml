@@ -1,22 +1,52 @@
 version: "3.3"
 services:
-  testmachine:
+  testmachine1:
     build:
       context: .
-      dockerfile: Dockerfile.debian-buster
+      dockerfile: Dockerfile.testmachine
+      args:
+        DISTRIBUTION: debian:buster
+        PORT: 2221
+    ports:
+      - "2221:2221"
+  testmachine2:
+    build:
+      context: .
+      dockerfile: Dockerfile.testmachine
+      args:
+        DISTRIBUTION: debian:bullseye
+        PORT: 2222
     ports:
       - "2222:2222"
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  testmachine3:
+    build:
+      context: .
+      dockerfile: Dockerfile.testmachine
+      args:
+        DISTRIBUTION: ubuntu:bionic
+        PORT: 2223
+    ports:
+      - "2223:2223"
+  testmachine4:
+    build:
+      context: .
+      dockerfile: Dockerfile.testmachine
+      args:
+        DISTRIBUTION: ubuntu:focal
+        PORT: 2224
+    ports:
+      - "2224:2224"
   orchestrator:
     build:
       context: .
       dockerfile: Dockerfile.orchestrator
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - ..:/etc/ansible/roles/ansible-role-ghost-restore:ro
     environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     links:
-      - testmachine
+      - testmachine1
+      - testmachine2
+      - testmachine3
+      - testmachine4

@@ -1,5 +1,5 @@
 ---
-- hosts: testmachine
+- hosts: all
   remote_user: root
   roles:
   - role: geerlingguy.nodejs
