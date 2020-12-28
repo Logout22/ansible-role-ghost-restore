@@ -1,5 +1,0 @@
-[test]
-testmachine1:2221 ansible_python_interpreter=/usr/bin/python3
-testmachine2:2222 ansible_python_interpreter=/usr/bin/python3
-testmachine3:2223 ansible_python_interpreter=/usr/bin/python3
-testmachine4:2224 ansible_python_interpreter=/usr/bin/python3

@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh 'sudo apt-get update && sudo apt-get install -y docker-compose'
+                sh 'sudo apt-get update && sudo apt-get install -y docker-compose ruby-mustache'
             }
         }
         stage('Build') {

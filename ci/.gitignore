@@ -1,0 +1,5 @@
+/.env
+/testmachine
+/testmachine.pub
+/docker-compose.yml
+/hosts

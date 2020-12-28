@@ -1,0 +1,11 @@
+{{#testmachines}}
+  testmachine{{{index}}}:
+    build:
+      context: .
+      dockerfile: Dockerfile.testmachine
+      args:
+        DISTRIBUTION: {{{distribution}}}
+        PORT: {{{ssh_port}}}
+    ports:
+      - {{{port_mapping}}}
+{{/testmachines}}
