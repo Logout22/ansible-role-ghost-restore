@@ -37,7 +37,7 @@ Installation
 
   The role requires a dedicated Ghost user, so you will need to run the tests either as root (sudo)
   or change the target user and path in `tests/test.yml` to your own user account / home directory.
-  Alternatively, you can build one of the docker containers from the `travis/` folder
+  Alternatively, you can build one of the docker containers from the `ci/` folder
   and try the role there.
 
 Role Variables
