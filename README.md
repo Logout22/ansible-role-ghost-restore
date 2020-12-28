@@ -1,8 +1,6 @@
 Ghost Restore
 =============
 
-[![Build Status](https://travis-ci.org/Logout22/ansible-role-ghost-restore.svg?branch=master)](https://travis-ci.org/Logout22/ansible-role-ghost-restore)
-
 A role to restore a Ghost blog from AWS S3.
 It is designed to work together with
 [ansible-role-ghost-backup](https://github.com/Logout22/ansible-role-ghost-backup).
