@@ -6,7 +6,7 @@
     nodejs_version: "14.x"
     nodejs_npm_global_packages:
       - name: ghost-cli
-  - role: ansible-role-ghost-restore
+  - role: role-under-test
     aws_s3_bucket_name: "ansible-role-ghost-backup-test"
   post_tasks:
   - name: make sure Ghost is stopped
