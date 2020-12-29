@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
+                sh 'git submodule update --init --recursive'
                 sh 'sudo apt-get update && sudo apt-get install -y docker-compose ruby-mustache'
             }
         }
