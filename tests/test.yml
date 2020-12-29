@@ -3,7 +3,7 @@
   remote_user: root
   roles:
   - role: geerlingguy.nodejs
-    nodejs_version: "14.x"
+    nodejs_version: "12.x"
     nodejs_npm_global_packages:
       - name: ghost-cli
   - role: role-under-test
