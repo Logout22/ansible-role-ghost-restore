@@ -19,7 +19,7 @@ pipeline {
                     sh '''sudo sh -c \
                         "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} && \
                         export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} && \
-                        cd ci && ./run-ci.sh"'''
+                        cd ci && ./run-ci.sh 2220"'''
                 }
             }
         }
