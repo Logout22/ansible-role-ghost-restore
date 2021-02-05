@@ -15,6 +15,10 @@
   stat:
     path: "{{ source_file_download_path }}"
   register: source_archive_before
+- name: install pip
+  package:
+    name: python3-pip
+    state: present
 - name: install AWS S3 dependencies
   pip:
     name:
