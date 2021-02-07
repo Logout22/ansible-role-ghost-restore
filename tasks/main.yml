@@ -7,7 +7,7 @@
     name: "{{ user_name }}"
 - name: ensure target directory exists
   file:
-    path: "{{ target_directory }}/{{ target_install_directory }}"
+    path: "{{ target_directory }}"
     owner: "{{ user_name }}"
     state: directory
     mode: 0755
@@ -45,6 +45,29 @@
   when: >
       source_archive_before.stat.checksum is not defined or
       source_archive_before.stat.checksum != source_archive_after.stat.checksum
+- name: stop Ghost before restoring
+  command: /bin/sh -lc "ghost stop"
+  # the command itself is idempotent
+  changed_when: False
+  become: yes
+  become_method: su
+  become_user: "{{ user_name }}"
+  args:
+    chdir: "{{ target_directory }}/{{ target_install_directory }}"
+  ignore_errors: yes
+  when: archive_changed
+- name: remove old target directory
+  file:
+    path: "{{ target_directory }}/{{ target_install_directory }}"
+    state: absent
+  when: archive_changed
+- name: recreate target directory for user
+  file:
+    path: "{{ target_directory }}/{{ target_install_directory }}"
+    owner: "{{ user_name }}"
+    state: directory
+    mode: 0755
+  when: archive_changed
 - name: extract downloaded archive
   unarchive:
     owner: "{{ user_name }}"
@@ -53,11 +76,7 @@
     dest: "{{ target_directory }}"
     src: "{{ source_file_download_path }}"
     mode: 0755
-- name: check if Ghost is running
-  uri:
-    url: "{{ ghost_address }}"
-  register: ghost_running
-  ignore_errors: yes
+  when: archive_changed
 - name: make sure Ghost is started
   command: /bin/sh -lc "ghost start"
   # the command itself is idempotent
@@ -67,3 +86,6 @@
   become_user: "{{ user_name }}"
   args:
     chdir: "{{ target_directory }}/{{ target_install_directory }}"
+- name: check if Ghost is running
+  uri:
+    url: "{{ ghost_address }}"
