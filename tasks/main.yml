@@ -26,7 +26,7 @@
       - boto3
       - botocore
 - name: download archive from S3
-  aws_s3:
+  amazon.aws.aws_s3:
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
     bucket: "{{ aws_s3_bucket_name }}"
