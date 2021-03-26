@@ -18,7 +18,7 @@ pycparser==2.19
 Pygments==2.7.2
 pyparsing==2.4.7
 python-dateutil==2.8.0
-PyYAML==5.1.2
+PyYAML==5.4
 rich==9.1.0
 ruamel.yaml==0.16.5
 s3transfer==0.2.1
