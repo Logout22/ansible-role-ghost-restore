@@ -15,10 +15,12 @@ pipeline {
         stage('Build') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'S3']]) {
-                    sh '''sudo sh -c \
-                        "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} && \
-                        export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} && \
-                        cd restore_ci && ./run-ci.sh 2220"'''
+                    lock('ansible-restore-ports') {
+                        sh '''sudo sh -c \
+                            "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} && \
+                            export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} && \
+                            cd restore_ci && ./run-ci.sh 2220"'''
+                    }
                 }
             }
         }
